@@ -15,13 +15,6 @@ class LikesController < ApplicationController
     redirect_to @tweet
   end
 
-  # def destroy
-  #   @tweet.likes.where(user: current_user).destroy_all
-  #   # by updating we trigger turbo_stream
-  #   @tweet.update(updated_at: Time.now)
-  #   redirect_to @tweet
-  # end
-
   private
 
   def set_tweet

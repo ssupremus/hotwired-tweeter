@@ -5,6 +5,7 @@ class Tweet < ApplicationRecord
   after_update_commit { broadcast_replace_to 'tweets' }
   after_destroy_commit { broadcast_remove_to 'tweets' }
 
+  belongs_to :user
   has_many :likes, dependent: :destroy
   validates :body, presence: true
 end

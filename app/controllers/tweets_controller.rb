@@ -74,6 +74,8 @@ class TweetsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def tweet_params
-    params.require(:tweet).permit(:body, :likes_count, :retweets_count)
+    params.require(:tweet)
+          .permit(:body, :likes_count, :retweets_count)
+          .merge(user: current_user)
   end
 end
