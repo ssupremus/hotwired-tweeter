@@ -48,7 +48,9 @@ class TweetsController < ApplicationController
         format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
         format.json { render :show, status: :ok, location: @tweet }
       else
-        format.turbo_stream { render turbo_stream: turbo_stream.replace(@tweet, partial: 'tweets/form', locals: { tweet: @tweet }) }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(@tweet, partial: 'tweets/form', locals: { tweet: @tweet })
+        end
         format.html { render :edit }
         format.json { render json: @tweet.errors, status: :unprocessable_entity }
       end
