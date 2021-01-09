@@ -1,0 +1,23 @@
+<%= form_with(model: tweet, id: dom_id(tweet)) do |form| %>
+  <% if tweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
+
+      <ul>
+        <% tweet.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mt-8 w-screen max-w-xl flex flex-col">
+    <%= form.text_area :body, class: 'p-4 rounded-xl', rows: 3, placeholder: 'What do you want to say?' %>
+    <% if tweet.persisted? %>
+      <%= link_to 'Cancel', @tweet, class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
+      <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
+    <% else %>
+      <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
+    <% end %>
+  </div>
+<% end %>

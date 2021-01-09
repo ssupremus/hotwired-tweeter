@@ -1,0 +1,17 @@
+<div class="bg-indigo-400 p-10 rounded-lg shadow-lg mx-w-lg mx-auto">
+  <h1 class="font-black text-6xl text-center">Tweets</h1>
+</div>
+  <div class="bg-gray-200 w-full flex flex-col items-center">
+    <%= turbo_frame_tag 'tweet_form' do %>
+      <%= render 'tweets/form', tweet: @tweet %>
+    <% end %>
+  </div>
+  <div class="p-8 bg-gray-50 dark:bg-gray-900 flex justify-center w-screen h-screen">
+  <div>
+    <p id="notice"><%= notice %></p>
+    <%= turbo_stream_from 'tweets' %>
+    <%= turbo_frame_tag 'tweets' do %>
+      <%= render @tweets %>
+    <% end %>
+  </div>
+</div>
