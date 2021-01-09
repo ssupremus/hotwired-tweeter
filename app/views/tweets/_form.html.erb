@@ -12,11 +12,12 @@
   <% end %>
 
   <div class="mt-8 w-screen max-w-xl flex flex-col">
-    <%= form.text_area :body, class: 'p-4 rounded-xl', rows: 3, placeholder: 'What do you want to say?' %>
     <% if tweet.persisted? %>
-      <%= link_to 'Cancel', @tweet, class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
-      <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
+      <%= form.text_area :body, class: 'p-4 rounded-xl resize-none max-w-lg', rows: 3, placeholder: 'What do you want to say?' %>
+      <%= button_to 'Cancel', @tweet, class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white max-w-lg' %>
+      <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white max-w-lg' %>
     <% else %>
+      <%= form.text_area :body, class: 'p-4 rounded-xl max-w-xl resize-none', rows: 3, placeholder: 'What do you want to say?' %>
       <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
     <% end %>
   </div>

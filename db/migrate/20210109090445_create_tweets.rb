@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# create tweets
 class CreateTweets < ActiveRecord::Migration[6.1]
   def change
     create_table :tweets do |t|
