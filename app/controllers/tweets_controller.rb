@@ -14,7 +14,10 @@ class TweetsController < ApplicationController
 
   # GET /tweets/1
   # GET /tweets/1.json
-  def show; end
+  def show
+    @comment = @tweet.comments.build
+    @comments = @tweet.comments.order(created_at: :desc)
+  end
 
   # GET /tweets/new
   def new
