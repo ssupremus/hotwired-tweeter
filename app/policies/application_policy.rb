@@ -7,9 +7,30 @@ class ApplicationPolicy < ActionPolicy::Base
   #
   # Read more about authorization context: https://actionpolicy.evilmartians.io/#/authorization_context
 
+  def index?
+    false
+  end
+
+  def new?
+    create?
+  end
+
+  def create?
+    false
+  end
+
   def edit?
     update?
   end
+
+  def update?
+    false
+  end
+
+  def destroy?
+    false
+  end
+
 
   # private
 
