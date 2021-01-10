@@ -11,6 +11,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    action_policy (0.5.5)
+      ruby-next-core (>= 0.11.0)
     actioncable (6.1.1)
       actionpack (= 6.1.1)
       activesupport (= 6.1.1)
@@ -154,6 +156,7 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    ruby-next-core (0.11.1)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
@@ -202,6 +205,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  action_policy
   bootsnap (>= 1.4.4)
   byebug
   devise
