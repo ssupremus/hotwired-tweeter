@@ -6,7 +6,8 @@ class Tweet < ApplicationRecord
   after_destroy_commit { broadcast_remove_to 'tweets' }
 
   belongs_to :user
-  has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  belongs_to :original_tweet, class_name: 'Tweet', optional: true
+  has_many :likes, as: :likeable, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
   validates :body, presence: true
 end

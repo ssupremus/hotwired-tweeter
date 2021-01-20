@@ -5,7 +5,7 @@ class Comment < ApplicationRecord
   after_update_commit { broadcast_replace_to 'comments' }
   after_destroy_commit { broadcast_remove_to 'comments' }
 
-  belongs_to :tweet
+  belongs_to :commentable, polymorphic: true
   belongs_to :user
   validates :body, presence: true
 end
