@@ -6,6 +6,6 @@
    </svg>
   </div>
   <div class="text-white max-w-xs ">
-    <%= "@#{notification.user.username}" %> <%= notification.action %> you!
+    <%= "@#{notification.user.username}" %> <%= notification.action %> on your <%= link_to 'tweet', tweet_path(notification.notifiable.id) %>
   </div>
 </div>

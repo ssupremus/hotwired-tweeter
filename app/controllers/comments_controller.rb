@@ -4,6 +4,7 @@
 class CommentsController < ApplicationController
   before_action :set_tweet
   before_action :set_comment, only: %i[update destroy]
+  after_action :create_notification, only: :create
 
   def create
     @comment = @tweet.comments.build(comment_params)
@@ -11,13 +12,10 @@ class CommentsController < ApplicationController
     if @comment.save
       # trigger turbo stream
       @tweet.update(updated_at: Time.now)
-      respond_to do |format|  ## Add this
-        format.json { render json: {}, status: :ok}
+      respond_to do |format|
+        format.json { render json: {}, status: :ok }
         format.html { redirect_to @tweet }
-        ## Other format
       end
-      # format.html # { redirect_to tweet_path(@tweet), notice: 'Comment added' }
-      # format.json { render :index, status: :created }
     else
       format.html { render :new }
       format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -56,5 +54,13 @@ class CommentsController < ApplicationController
     params.require(:comment)
           .permit(%i[body tweet_id])
           .merge(user_id: current_user.id)
+  end
+
+  def create_notification
+    return if @tweet.user == current_user
+
+    @tweet.notifications.create(recipient: @tweet.user,
+                                user: current_user,
+                                action: 'commented')
   end
 end

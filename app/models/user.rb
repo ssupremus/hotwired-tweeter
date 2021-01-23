@@ -10,5 +10,5 @@ class User < ApplicationRecord
   has_many :tweets, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes
-  has_many :notifications
+  has_many :notifications, as: :notifiable
 end
