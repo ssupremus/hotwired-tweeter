@@ -1,23 +1,17 @@
-<% if current_user.present? && current_user == @user %>
-  <div class="bg-gray-200 w-full flex flex-col items-center">
-    <%= turbo_frame_tag 'tweet_form' do %>
-      <%= render 'tweets/form', tweet: @tweet %>
-    <% end %>
-  </div>
-<% else %>
-  <div class="bg-gray-200 w-full flex flex-col">
-    <div class="flex mb-4 mt-4 ml-4">
-      <img class="w-20 h-20 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-      <div class="ml-2 mt-0.5">
-        <span class="block font-medium text-base leading-snug text-black dark:text-gray-100"><%= @user.name %></span>
-        <span class="block text-sm text-gray-500 dark:text-gray-400 font-light leading-snug"><%= "@#{@user.username}" %></span>
-      </div>
+<div class="bg-gray-200 w-full flex flex-col">
+  <div class="flex mb-4 mt-4 ml-4">
+    <img class="w-20 h-20 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
+    <div class="ml-2 mt-0.5">
+      <span class="block font-medium text-base leading-snug text-black dark:text-gray-100"><%= @user.name %></span>
+      <span class="block text-sm text-gray-500 dark:text-gray-400 font-light leading-snug"><%= "@#{@user.username}" %></span>
     </div>
+  </div>
+  <% if current_user.present? && current_user != @user %>
     <div class="absolute top-15 right-10">
       <%= button_to unsubscribed? ? 'Follow' : 'Unfollow', user_subscription_path(@user), class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 pl-4 pr-4 rounded-xl text-white max-w-lg' %>
     </div>
-  </div>
-<% end %>
+  <% end %>
+</div>
 <div class="p-8 bg-gray-50 dark:bg-gray-900 flex justify-center w-screen h-screen">
   <div>
     <p id="notice"><%= notice %></p>

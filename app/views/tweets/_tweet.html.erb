@@ -12,7 +12,7 @@
           <span class="block text-sm text-gray-500 dark:text-gray-400 font-light leading-snug"><%= tweet.created_at.strftime('%-d %B at %H:%M') %></span>
         </div>
       </div>
-      <p class="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal"><%= tweet.body %></p>
+      <p class="text-gray-800 dark:text-gray-100 leading-snug md:leading-normal"><%= linked_users tweet.body %></p>
       <div class="flex justify-between items-center mt-5" data-tweet-target="ignore">
         <div class="flex ">
           <%= button_to tweet_like_path(tweet), data: { controller: 'likes', likes_user_ids_value: tweet.likes.pluck(:user_id) } do %>
