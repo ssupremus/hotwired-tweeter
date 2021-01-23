@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+
+# notification relay job
+class NotificationRelayJob < ApplicationJob
+  queue_as :default
+
+  def perform(notification_id)
+    notification = Notification.find(notification_id)
+    html = ApplicationController.render(partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}",
+                                        locals: { notification: notification },
+                                        formats: [:html])
+    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { html: html }
+  end
+end
