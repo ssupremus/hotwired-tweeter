@@ -8,6 +8,9 @@ Rails.application.routes.draw do
     resource :like
     resources :comments
   end
+  resources :users, only: %i[show] do
+    resource :subscription
+  end
 
   root 'tweets#index'
 end

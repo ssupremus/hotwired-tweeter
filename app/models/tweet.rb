@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# tweet model
 class Tweet < ApplicationRecord
   after_create_commit { broadcast_prepend_to 'tweets' }
   after_update_commit { broadcast_replace_to 'tweets' }
