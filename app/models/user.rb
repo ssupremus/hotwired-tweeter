@@ -12,4 +12,6 @@ class User < ApplicationRecord
   has_many :likes
   has_many :notifications, as: :notifiable
   has_many :subscriptions, dependent: :destroy
+  validates :name, presence: true
+  validates :username, presence: true, uniqueness: true
 end

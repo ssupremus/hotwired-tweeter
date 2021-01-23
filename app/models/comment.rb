@@ -8,5 +8,26 @@ class Comment < ApplicationRecord
 
   belongs_to :commentable, polymorphic: true
   belongs_to :user
+  has_many :notifications, as: :notifiable
   validates :body, presence: true
+
+  after_create :notify_mentioned_users
+
+  def mentions
+    regex = /@(\w+)/
+
+    body.scan(regex).flatten
+  end
+
+  def mentioned_users
+    User.where(username: mentions)
+  end
+
+  def notify_mentioned_users
+    mentioned_users.each do |mentioned_user|
+      notifications.create(recipient: mentioned_user,
+                           user: user,
+                           action: 'mentioned')
+    end
+  end
 end

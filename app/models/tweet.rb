@@ -12,6 +12,7 @@ class Tweet < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   validates :body, presence: true
   has_many :notifications, as: :notifiable
+  after_create :notify_mentioned_users
 
   def mentions
     regex = /@(\w+)/
@@ -21,5 +22,13 @@ class Tweet < ApplicationRecord
 
   def mentioned_users
     User.where(username: mentions)
+  end
+
+  def notify_mentioned_users
+    mentioned_users.each do |mentioned_user|
+      notifications.create(recipient: mentioned_user,
+                           user: user,
+                           action: 'mentioned')
+    end
   end
 end

@@ -9,8 +9,8 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweet = Tweet.new
-    ids = [current_user.id, *current_user.subscriptions.pluck(:followee_id)]
-    @tweets = Tweet.where(user_id: ids).order(created_at: :desc)
+    ids = [current_user.id, *subscriptions]
+    @tweets = Tweet.where('user_id IN (?) OR id IN (?)', ids, mentions).order(created_at: :desc)
   end
 
   # GET /tweets/1
@@ -85,5 +85,13 @@ class TweetsController < ApplicationController
     params.require(:tweet)
           .permit(:body, :likes_count, :retweets_count)
           .merge(user: current_user)
+  end
+
+  def subscriptions
+    current_user.subscriptions.pluck(:followee_id)
+  end
+
+  def mentions
+    Tweet.select { |tweet| current_user.id.in?(tweet.mentioned_users.ids) }.pluck(:id)
   end
 end
