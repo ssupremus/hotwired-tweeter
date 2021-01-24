@@ -10,6 +10,7 @@ class Comment < ApplicationRecord
   belongs_to :user
   has_rich_text :body
   has_many :notifications, as: :notifiable
+  validates :body, presence: true, if: -> { rich_text_body.body.attachments.none? }
   after_create :notify_mentioned_users
 
   def mentions

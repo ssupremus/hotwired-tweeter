@@ -11,7 +11,7 @@ class Tweet < ApplicationRecord
   has_rich_text :body
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  # validates :body, presence: true
+  validates :body, presence: true, if: -> { rich_text_body.body.attachments.none? }
   has_many :notifications, as: :notifiable
   after_create :notify_mentioned_users
 
