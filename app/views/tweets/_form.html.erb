@@ -13,11 +13,12 @@
 
   <div class="mt-8 w-screen max-w-xl flex flex-col">
     <% if tweet.persisted? %>
-      <%= form.text_area :body, class: 'p-4 rounded-xl resize-none max-w-lg', rows: 3, placeholder: 'What do you want to say?' %>
+      <%= form.rich_text_area :body, placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' } %>
       <%= button_to 'Cancel', @tweet, class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white max-w-lg' %>
       <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white max-w-lg' %>
     <% else %>
-      <%= form.text_area :body, class: 'p-4 rounded-xl max-w-xl resize-none', rows: 3, placeholder: 'What do you want to say?' %>
+      <%#= form.rich_text_area :body, class: 'p-4 rounded-xl max-w-xl resize-none', placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' } %>
+      <%= form.rich_text_area :body, placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' } %>
       <%= form.submit 'Tweet', class: 'py-3 my-8 text-lg bg-gradient-to-r from-purple-500 to-indigo-600 rounded-xl text-white' %>
     <% end %>
   </div>

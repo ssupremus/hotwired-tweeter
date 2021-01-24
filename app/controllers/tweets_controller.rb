@@ -10,7 +10,8 @@ class TweetsController < ApplicationController
   def index
     @tweet = Tweet.new
     ids = [current_user.id, *subscriptions]
-    @tweets = Tweet.where('user_id IN (?) OR id IN (?)', ids, mentions).order(created_at: :desc)
+    # @tweets = Tweet.where('user_id IN (?) OR id IN (?)', ids, mentions).order(created_at: :desc)
+    @tweets = Tweet.where('user_id IN (?)', ids).order(created_at: :desc)
   end
 
   # GET /tweets/1

@@ -12,9 +12,11 @@
           <%= tweet.body %>
         </h3>
         <div class="mt-2">
-          <p class="text-sm text-gray-500">
-            <%= form.text_area :body, class: 'p-4 rounded-xl resize-none w-96', rows: 3, placeholder: 'Tweet your reply' %>
-          </p>
+          <!-- <p class="text-sm text-gray-500"> -->
+            <%#= form.rich_text_area :body, class: 'p-4 rounded-xl resize-none w-96', placeholder: 'Tweet your reply', data: { controller: 'mentions', mentions_target: 'field' } %>
+            <%#= form.rich_text_area :body, placeholder: 'Tweet your reply', data: { controller: 'mentions', mentions_target: 'field' } %>
+          <%= form.rich_text_area :body, placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' } %>
+          <!-- </p> -->
         </div>
       </div>
     </div>

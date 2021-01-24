@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+  resources :mentions, only: :index
   resources :tweets do
     resource :like
     resources :comments

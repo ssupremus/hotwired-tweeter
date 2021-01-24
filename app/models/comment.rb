@@ -8,10 +8,10 @@ class Comment < ApplicationRecord
 
   belongs_to :commentable, polymorphic: true
   belongs_to :user
+  has_rich_text :body
   has_many :notifications, as: :notifiable
-  validates :body, presence: true
 
-  after_create :notify_mentioned_users
+  # after_create :notify_mentioned_users
 
   def mentions
     regex = /@(\w+)/

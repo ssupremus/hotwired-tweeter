@@ -13,7 +13,6 @@ class BindUsersToTweets < ActiveRecord::Migration[6.1]
   def create_tweets
     create_table :tweets do |t|
       t.bigint :original_tweet_id
-      t.string :body
       t.references :user
       t.timestamps
     end
@@ -24,7 +23,6 @@ class BindUsersToTweets < ActiveRecord::Migration[6.1]
       t.bigint :commentable_id
       t.string :commentable_type
       t.references :user
-      t.string :body
       t.timestamps
     end
   end

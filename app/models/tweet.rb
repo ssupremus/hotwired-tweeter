@@ -8,11 +8,12 @@ class Tweet < ApplicationRecord
 
   belongs_to :user
   belongs_to :original_tweet, class_name: 'Tweet', optional: true
+  has_rich_text :body
   has_many :likes, as: :likeable, dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
-  validates :body, presence: true
+  # validates :body, presence: true
   has_many :notifications, as: :notifiable
-  after_create :notify_mentioned_users
+  # after_create :notify_mentioned_users
 
   def mentions
     regex = /@(\w+)/
