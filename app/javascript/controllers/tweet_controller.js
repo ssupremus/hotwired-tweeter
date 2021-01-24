@@ -1,3 +1,4 @@
+import { $ } from "@rails/ujs"
 import { Controller } from "stimulus"
 
 export default class extends Controller {
@@ -5,6 +6,19 @@ export default class extends Controller {
     url: String
   }
   static targets = ["ignore", "username", "avatar"]
+
+  connect() {
+    const links = this.element.getElementsByTagName("a")
+
+    for(let i = 0; i < links.length; i++) {
+      if (links[i].innerHTML != "Edit" && links[i].innerHTML != "Delete") {
+        links[i].setAttribute("data-turbo-frame", "_top")
+        links[i].addEventListener("click", (event) => {
+          event.stopPropagation()
+        })
+      }
+    }
+  }
 
   goTo() {
     const url = this.urlValue

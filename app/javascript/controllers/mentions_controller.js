@@ -6,7 +6,6 @@ export default class extends Controller {
   static targets = ["field"]
 
   connect() {
-    console.log('hello mentions')
     this.editor = this.fieldTarget.editor
     this.initializeTribute()
   }

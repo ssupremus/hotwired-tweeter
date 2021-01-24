@@ -10,13 +10,12 @@ class Comment < ApplicationRecord
   belongs_to :user
   has_rich_text :body
   has_many :notifications, as: :notifiable
-
-  # after_create :notify_mentioned_users
+  after_create :notify_mentioned_users
 
   def mentions
     regex = /@(\w+)/
 
-    body.scan(regex).flatten
+    body.to_s.scan(regex).flatten
   end
 
   def mentioned_users

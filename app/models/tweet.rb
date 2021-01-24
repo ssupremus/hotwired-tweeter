@@ -13,12 +13,12 @@ class Tweet < ApplicationRecord
   has_many :comments, as: :commentable, dependent: :destroy
   # validates :body, presence: true
   has_many :notifications, as: :notifiable
-  # after_create :notify_mentioned_users
+  after_create :notify_mentioned_users
 
   def mentions
     regex = /@(\w+)/
 
-    body.scan(regex).flatten
+    body.to_s.scan(regex).flatten
   end
 
   def mentioned_users
