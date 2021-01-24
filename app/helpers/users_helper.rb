@@ -7,4 +7,12 @@ module UsersHelper
                 .where(followee_id: @user.id)
                 .none?
   end
+
+  def following(user)
+    user.subscriptions
+  end
+
+  def followers(user)
+    Subscription.where(followee_id: user.id)
+  end
 end
