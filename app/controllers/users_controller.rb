@@ -16,7 +16,5 @@ class UsersController < ApplicationController
 
   def user
     @user = User.find(params[:id])
-  rescue
-    @user = User.where(username: params[:id]).last
   end
 end

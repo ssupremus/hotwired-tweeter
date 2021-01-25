@@ -2,6 +2,7 @@
 
 # comments controller
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_tweet
   before_action :set_comment, only: %i[update destroy]
   after_action :create_notification, only: :create

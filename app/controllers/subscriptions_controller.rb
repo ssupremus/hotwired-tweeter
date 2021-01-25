@@ -2,6 +2,7 @@
 
 # subscriptions controller
 class SubscriptionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :user
 
   def create
