@@ -10,6 +10,8 @@ class NotificationRelayJob < ApplicationJob
                                                                               .pluralize}/#{notification.action}",
                                         locals: { notification: notification },
                                         formats: [:html])
-    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { html: html }
+    notifications_count = Notification.where(recipient: notification.recipient).unread.count
+    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { html: html,
+                                                                                 count: notifications_count }
   end
 end

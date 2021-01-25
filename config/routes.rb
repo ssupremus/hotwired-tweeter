@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :users, only: %i[show] do
     resource :subscription
   end
-
+  resources :notifications, only: %i[index] do
+    collection do
+      post :mark_as_read
+    end
+  end
   root 'tweets#index'
 end
