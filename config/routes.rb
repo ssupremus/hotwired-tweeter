@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :mentions, only: :index
   resources :tweets do
     resource :like
-    resources :comments
+    resources :comments do
+      resource :like
+    end
   end
   resources :users, only: %i[show] do
     resource :subscription

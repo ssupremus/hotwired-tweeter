@@ -2,31 +2,35 @@
 
 # likes controller
 class LikesController < ApplicationController
-  before_action :set_tweet
+  before_action :set_likeable
 
   def create
-    if @tweet.likes.where(user: current_user).any?
-      @tweet.likes.where(user: current_user).destroy_all
+    if @likeable.likes.where(user: current_user).any?
+      @likeable.likes.where(user: current_user).destroy_all
     else
-      @tweet.likes.create(user: current_user)
+      @likeable.likes.create(user: current_user)
       create_notification
     end
     # by updating we trigger turbo_stream
-    @tweet.update(updated_at: Time.now)
-    redirect_to @tweet
+    @likeable.update(updated_at: Time.now)
+    redirect_to @likeable.instance_of?(Comment) ? @likeable.commentable : @likeable
   end
 
   private
 
-  def set_tweet
-    @tweet = Tweet.find(params[:tweet_id])
+  def set_likeable
+    @likeable = if params[:comment_id].present?
+                  Comment.find(params[:comment_id])
+                elsif params[:tweet_id].present?
+                  Tweet.find(params[:tweet_id])
+                end
   end
 
   def create_notification
-    return if @tweet.user == current_user
+    return if @likeable.user == current_user
 
-    @tweet.notifications.create(recipient: @tweet.user,
-                                user: current_user,
-                                action: 'liked')
+    @likeable.notifications.create(recipient: @likeable.user,
+                                   user: current_user,
+                                   action: 'liked')
   end
 end
