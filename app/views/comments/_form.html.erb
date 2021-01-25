@@ -1,4 +1,4 @@
-<%= form_with(model: [tweet, comment]) do |form|%>
+<%= form_with(model: [tweet, comment], id: dom_id(comment)) do |form|%>
   <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
     <div class="sm:flex sm:items-start">
       <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
@@ -15,7 +15,7 @@
           <!-- <p class="text-sm text-gray-500"> -->
             <%#= form.rich_text_area :body, class: 'p-4 rounded-xl resize-none w-96', placeholder: 'Tweet your reply', data: { controller: 'mentions', mentions_target: 'field' } %>
             <%#= form.rich_text_area :body, placeholder: 'Tweet your reply', data: { controller: 'mentions', mentions_target: 'field' } %>
-          <%= form.rich_text_area :body, placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' } %>
+          <%= form.rich_text_area :body, placeholder: 'What do you want to say?', data: { controller: 'mentions', mentions_target: 'field' }, id: "comment_body_tweet_#{tweet.id}" %>
           <!-- </p> -->
         </div>
       </div>

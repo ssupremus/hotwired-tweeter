@@ -5,13 +5,12 @@ class NotificationRelayJob < ApplicationJob
   queue_as :default
 
   def perform(notification)
-    html = ApplicationController.render(partial: "notifications/#{notification.notifiable_type
-                                                                              .underscore
-                                                                              .pluralize}/#{notification.action}",
-                                        locals: { notification: notification },
-                                        formats: [:html])
+    # html = ApplicationController.render(partial: "notifications/#{notification.notifiable_type
+    #                                                                           .underscore
+    #                                                                           .pluralize}/#{notification.action}",
+    #                                     locals: { notification: notification },
+    #                                     formats: [:html])
     notifications_count = Notification.where(recipient: notification.recipient).unread.count
-    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { html: html,
-                                                                                 count: notifications_count }
+    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { count: notifications_count }
   end
 end

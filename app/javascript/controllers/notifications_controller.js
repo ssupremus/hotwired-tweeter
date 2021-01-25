@@ -32,24 +32,7 @@ export default class extends Controller {
         notifications.forEach(notification => {
           let elem = document.createElement("div")
 
-          elem.className = "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-          if (notification.notifiable["type"] == "tweet") {
-            if (notification.action == "mentioned") {
-              elem.innerHTML = `@${notification.user} ${notification.action} you in a tweet`
-            } else if (notification.action == "liked") {
-              elem.innerHTML = `@${notification.user} ${notification.action} your tweet`
-            } else if (notification.action == "commented") {
-              elem.innerHTML = `@${notification.user} ${notification.action} commented your tweet`
-            }
-          } else if (notification.notifiable["type"] == "comment") {
-            if (notification.action == "mentioned") {
-              elem.innerHTML = `@${notification.user} ${notification.action} you in a comment`
-            } else if (notification.action == "liked") {
-              elem.innerHTML = `@${notification.user} ${notification.action} your comment`
-            }
-          } else {
-            elem.innerHTML = `@${notification.user} ${notification.action} you!`
-          }
+          elem.innerHTML = notification.template
           items.appendChild(elem)
         })
       })

@@ -3,10 +3,7 @@
 # notifications controller
 class NotificationsController < ApplicationController
   def index
-    @notifications = Notification.where(recipient: current_user)
-                                 .unread
-                                 .sort_by(&:created_at)
-                                 .reverse
+    @notifications = Notification.where(recipient: current_user).recent
   end
 
   def mark_as_read

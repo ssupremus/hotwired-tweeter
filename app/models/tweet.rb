@@ -22,11 +22,6 @@ class Tweet < ApplicationRecord
   end
 
   def mentioned_users
-    # body.body
-    #     .attachments
-    #     .select { |a| a.attachable.instance_of?(User) }
-    #     .map(&:attachable)
-    #     .uniq
     User.where(username: mentions)
   end
 

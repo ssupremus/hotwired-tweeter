@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   after_action :create_notification, only: :create
 
   def create
-    @comment = @tweet.comments.build(comment_params)
+    @comment = @tweet.comments.new(comment_params)
 
     if @comment.save
       # trigger turbo stream
@@ -17,6 +17,9 @@ class CommentsController < ApplicationController
         format.html { redirect_to @tweet }
       end
     else
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@tweet, partial: 'comments/form', locals: { tweet: @tweet })
+      end
       format.html { render :new }
       format.json { render json: @comment.errors, status: :unprocessable_entity }
     end
@@ -27,6 +30,9 @@ class CommentsController < ApplicationController
       format.html { redirect_to @tweet, notice: 'Comment updated.' }
       format.json { render :index, status: :created }
     else
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace(@tweet, partial: 'comments/form', locals: { tweet: @tweet })
+      end
       format.html { render :new }
       format.json { render json: @comment.errors, status: :unprocessable_entity }
     end
@@ -52,7 +58,7 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment)
-          .permit(%i[body tweet_id])
+          .permit(%i[id body tweet_id])
           .merge(user_id: current_user.id)
   end
 

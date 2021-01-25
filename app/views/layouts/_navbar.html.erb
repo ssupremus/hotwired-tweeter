@@ -55,16 +55,7 @@
                 </svg>
               </button>
             </div>
-            <div data-notifications-target="items"class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="notifications-menu">
-              <%# if @notifications.any? %>
-                <%# @notifications.each do |notification| %>
-                  <%#= render partial: "notifications/#{notification.notifiable.class.to_s.underscore.pluralize}/#{notification.action}",
-                             locals: { notification: notification } %>
-                <%# end %>
-              <%# else %>
-                <!-- <div class="ml-4">There are no notifications at the moment.</div> -->
-              <%# end %>
-            </div>
+            <div data-notifications-target="items"class="origin-top-right absolute right-0 mt-2 w-80 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 hidden" role="menu" aria-orientation="vertical" aria-labelledby="notifications-menu"></div>
           </div>
           <%= content_tag :div, class: "bg-red-500 rounded-full h-5 w-5 flex items-center justify-center #{'hidden' if @notifications.none?}", id: 'notifications_count' do %>
             <%= @notifications.count %>

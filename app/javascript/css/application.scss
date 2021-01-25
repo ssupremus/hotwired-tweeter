@@ -2,7 +2,7 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "trix/dist/trix";
-
+@import "./actiontext.scss";
 .trix-content {
   .attachment-gallery {
     > action-text-attachment,
@@ -31,9 +31,9 @@
 }
 
 // hide trix toolbar
-trix-toolbar {
-  display: none;
-}
+// trix-toolbar {
+//   display: none;
+// }
 
 .tribute-container {
   border-radius: 4px;
