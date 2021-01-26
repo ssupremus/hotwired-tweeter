@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       resource :like
     end
   end
-  resources :users, only: %i[show] do
+  resources :users, except: %i[new create index] do
     resource :subscription
   end
   resources :notifications, only: %i[index] do

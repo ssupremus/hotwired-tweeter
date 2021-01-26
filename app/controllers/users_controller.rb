@@ -12,9 +12,23 @@ class UsersController < ApplicationController
     @tweet = @user.tweets.new
   end
 
+  def edit; end
+
+  def update
+    if @user.update(user_params)
+      redirect_to @user
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(:name, :username)
   end
 end
