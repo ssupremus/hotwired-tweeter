@@ -2,7 +2,9 @@
 
 # users controller
 class UsersController < ApplicationController
+  include OnboardingsConcern
   before_action :user
+  before_action :onboarding_completion, only: :show
 
   def show
     @tweets = @user.tweets
@@ -30,5 +32,11 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :username)
+  end
+
+  def onboarding_completion
+    steps = OnboardingsConcern.instance_methods
+    complete = steps.select { |step| send(step) }
+    @onboarding_completion = complete.length / steps.length.to_f * 100
   end
 end
